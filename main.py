@@ -5,7 +5,7 @@ from flask_bootstrap import Bootstrap
 from NearByLocations import NearByLocations
 
 app = Flask(__name__, template_folder=".")
-app.config['GOOGLEMAPS_KEY'] = "AIzaSyCbboNhiFtxSQu5SsdhTRhC3O1cq3MaHE4"
+app.config['GOOGLEMAPS_KEY'] = ""
 Bootstrap(app)
 GoogleMaps(app)
 
