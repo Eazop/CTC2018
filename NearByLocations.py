@@ -18,6 +18,7 @@ class NearByLocations:
             if resp == "":
                 return 0
             for entry in result:
+                print(entry['location_1'])
                 l = Location.Location()
                 l.init(entry['pharmacy_name'], entry['phone'], entry['location_1'], entry['address'], entry['city'], entry['zip'], "Naloxone")
                 self.locations.append(l)

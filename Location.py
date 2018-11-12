@@ -1,5 +1,6 @@
+import json
 class Location:
-    location = []
+    location = None
     name = ""
     street = ""
     town = ""
