@@ -20,12 +20,12 @@
 <body>
         <nav class="navbar navbar-default navbar-invert navbar-fixed-top">
                 <div class="container">
-                    <form class="navbar-form navbar-left" role="search">
+                    <form class="navbar-form navbar-left" role="search" action="{{url_for('mapview')}}" method=post>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Town">
+                            <input type="text" class="form-control" placeholder="Town" value="{{prevValue}}" name="Town">
                             <select class="form-control" name="Service">
                                 <option value="Naloxone">Naloxone</option>
-                                <option value="Care Center">Care Center</Option>
+                                <option value="Care Facilities">Care Center</Option>
                                 <option value="Drop Box">Drop Box</option>
                             </select>
                         </div>

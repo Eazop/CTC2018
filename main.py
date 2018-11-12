@@ -3,9 +3,11 @@ from flask_googlemaps import GoogleMaps
 from flask_googlemaps import Map
 from flask_bootstrap import Bootstrap
 from NearByLocations import NearByLocations
+import requests
+import json
 
 app = Flask(__name__, template_folder=".")
-app.config['GOOGLEMAPS_KEY'] = ""
+app.config['GOOGLEMAPS_KEY'] = "AIzaSyBudLNw6Yc7FCyOS72H7-0PcxkHTrGlYGc"
 Bootstrap(app)
 GoogleMaps(app)
 
@@ -20,26 +22,51 @@ PASSWORD=''
 @app.route("/", methods=['GET', 'POST'])
 def index():
     session.permanent = False
-    return render_template('example.html')
+
+    mymap = Map(
+    style="width: 100vw; height: 100vh;",
+    identifier="view-side",
+    lat= 41.6032,
+    lng=  -73.0877,
+    markers=[],
+    zoom=9
+    )
+    return render_template('pages/index.html', mymap=mymap)
 
 @app.route('/mapView/', methods=['GET', 'POST'])
 def mapview():
     location = NearByLocations()
+    location.locations = []
     location.findServices(request.form['Town'], request.form['Service'])
-
-    markers=[]
-    for entry in location.locations:
-        markers.append((entry.location['coordinates'][1], entry.location['coordinates'][0]))
+    mymap = None
+    if len(location.locations) == 0:
+        mymap = Map(
+            style="width: 100vw; height: 100vh;",
+            identifier="view-side",
+            lat= 41.6032,
+            lng=  -73.0877,
+            markers=[]
+        )
+    else:
+        markers=[]
+        if request.form['Service'] == "Care Facilities":
+            for entry in location.locations:
+                markers.append((entry.location['lat'], entry.location['lng']))
+        elif request.form['Service'] == "Drop Box":
+            for entry in location.locations:
+                markers.append((entry.location[0], entry.location[1]))
+        else:
+            for entry in location.locations:
+                markers.append((entry.location['coordinates'][1], entry.location['coordinates'][0]))
     # creating a map in the view
-    mymap = Map(
-        style="width: 100vw; height: 100vh;",
-        identifier="view-side",
-        lat= location.locations[0].location['coordinates'][1],
-        lng=  location.locations[0].location['coordinates'][0],
-        markers=markers
-    )
-
-    return render_template('pages/index.html', mymap=mymap)
+        mymap = Map(
+            style="width: 100vw; height: 100vh;",
+            identifier="view-side",
+            lat= markers[0][0],
+            lng= markers[0][1],
+            markers=markers
+        )
+    return render_template('pages/index.html', mymap=mymap, prevValue=request.form['Town'])
 
 #Later implemenatations
 @app.route('/FAQ/')

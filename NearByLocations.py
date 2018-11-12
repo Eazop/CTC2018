@@ -9,7 +9,6 @@ class NearByLocations:
     userLocation = None
     locations = list()
     def findServices(self, town, service):
-        resp = requests.get("https://maps.googleapis.com/maps/api/geocode/json?parameters")
         locations = list()
         if service == "Naloxone":
             endpoint = "https://data.ct.gov/resource/4vs4-3cb3.json?City=" +town.upper()
@@ -27,17 +26,21 @@ class NearByLocations:
             result = json.loads(resp.content)
             for entry in result:
                 l = Location.Location()
-                l.init(entry['location_name'], "", entry['location_1'], entry['address'], entry['city'], "", service)
+                l.init(entry['location_name'], "", (entry['location_1']['latitude'], entry['location_1']['longitude']), entry['address'], entry['city'], "", service)
                 self.locations.append(l)
         elif service == "Care Facilities":
             endpoint = "https://data.ct.gov/resource/htz8-fxbk.json?City="+ town.upper()
             resp = requests.get(endpoint)
             result = json.loads(resp.content)
+
             for entry in result:
+                address = entry['address'].replace(" ", "+")
+                city = entry['city']
                 l = Location.Location()
-                l.init(entry['name'], "", "", entry['address'], entry['city'], entry['zip'], service)
+                resp = requests.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + address + ",+" + city + ",+CT&key=AIzaSyBudLNw6Yc7FCyOS72H7-0PcxkHTrGlYGc")
+                rest = json.loads(resp.content)
+                l.init(entry['name'], "", rest['results'][0]['geometry']['location'], entry['address'], entry['city'], entry['zip'], service)
                 self.locations.append(l)
         else:
             return 0
-
 
