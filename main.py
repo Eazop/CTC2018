@@ -5,7 +5,7 @@ from flask_bootstrap import Bootstrap
 from NearByLocations import NearByLocations
 
 app = Flask(__name__, template_folder=".")
-app.config['GOOGLEMAPS_KEY'] = "AIzaSyDD7cwZ-K0wgkVYnAaFza0iuIX92DvTVDU"
+app.config['GOOGLEMAPS_KEY'] = ""
 Bootstrap(app)
 GoogleMaps(app)
 
@@ -40,6 +40,30 @@ def mapview():
     )
 
     return render_template('pages/index.html', mymap=mymap)
+
+#Later implemenatations
+@app.route('/FAQ/')
+def displayFacts():
+    #do stuff
+
+    return render_template('pages/index.html')
+
+
+#Later implemenatations
+@app.route('/Help/')
+def displayHelp():
+    #do stuff
+
+    return render_template('pages/index.html')
+
+#Later implemenatations
+@app.route('/Prevention/')
+def displayPrevention():
+    #do stuff
+
+    return render_template('pages/index.html')
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
