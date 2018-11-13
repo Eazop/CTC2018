@@ -16,6 +16,7 @@ class Location:
         self.town = town
         self.zipCode = zipCode
         self.service = service
+        self.phoneNumber = phone
 
     #def distanceFrom(latitude, longitude):
         #logic goes here
