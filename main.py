@@ -54,7 +54,8 @@ def mapview():
                 markers.append({
                     'icon': '/static/images/doc.png',
                     'lat': entry.location['lat'], 
-                    'lng': entry.location['lng']
+                    'lng': entry.location['lng'],
+                    'infobox': "<b>" + entry.name + "</b>" + "</br>" + entry.address
                     }
                     )
         elif request.form['Service'] == "Drop Box":
@@ -62,7 +63,8 @@ def mapview():
                 markers.append({
                     'icon': '/static/images/box.png',
                     'lat': entry.location[0], 
-                    'lng': entry.location[1]
+                    'lng': entry.location[1],
+                    'infobox': "<b>" + entry.name + "</b></br>" + entry.address
                     }
                     )
         else:
@@ -71,7 +73,8 @@ def mapview():
                     {
                     'icon': '/static/images/pharmacy.png',
                     'lat': entry.location['coordinates'][1], 
-                    'lng': entry.location['coordinates'][0]
+                    'lng': entry.location['coordinates'][0],
+                    'infobox': "<b>" + entry.name + "</b></br>" + entry.phoneNumber + "</br>" + entry.address
                     }
                     )
     # creating a map in the view

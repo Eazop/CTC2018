@@ -1,6 +1,7 @@
 import json
 class Location:
     location = None
+    address = ""
     name = ""
     street = ""
     town = ""
