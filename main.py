@@ -51,19 +51,35 @@ def mapview():
         markers=[]
         if request.form['Service'] == "Care Facilities":
             for entry in location.locations:
-                markers.append((entry.location['lat'], entry.location['lng']))
+                markers.append({
+                    'icon': '/static/images/doc.png',
+                    'lat': entry.location['lat'], 
+                    'lng': entry.location['lng']
+                    }
+                    )
         elif request.form['Service'] == "Drop Box":
             for entry in location.locations:
-                markers.append((entry.location[0], entry.location[1]))
+                markers.append({
+                    'icon': '/static/images/box.png',
+                    'lat': entry.location[0], 
+                    'lng': entry.location[1]
+                    }
+                    )
         else:
             for entry in location.locations:
-                markers.append((entry.location['coordinates'][1], entry.location['coordinates'][0]))
+                markers.append(
+                    {
+                    'icon': '/static/images/pharmacy.png',
+                    'lat': entry.location['coordinates'][1], 
+                    'lng': entry.location['coordinates'][0]
+                    }
+                    )
     # creating a map in the view
         mymap = Map(
             style="width: 100vw; height: 100vh;",
             identifier="view-side",
-            lat= markers[0][0],
-            lng= markers[0][1],
+            lat= markers[0]['lat'],
+            lng= markers[0]['lng'],
             markers=markers
         )
     return render_template('pages/index.html', mymap=mymap, prevValue=request.form['Town'])
