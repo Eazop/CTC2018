@@ -7,7 +7,7 @@ import requests
 import json
 
 app = Flask(__name__, template_folder=".")
-app.config['GOOGLEMAPS_KEY'] = "AIzaSyBudLNw6Yc7FCyOS72H7-0PcxkHTrGlYGc"
+app.config['GOOGLEMAPS_KEY'] = ""
 Bootstrap(app)
 GoogleMaps(app)
 
