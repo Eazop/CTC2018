@@ -2,7 +2,7 @@ import Location
 import requests
 import json
 
-apiKey = "AIzaSyCbboNhiFtxSQu5SsdhTRhC3O1cq3MaHE4"
+apiKey = ""
 
 class NearByLocations:
     endpoint = ""
