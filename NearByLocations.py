@@ -24,7 +24,7 @@ class NearByLocations:
                 if not ('coordinates'  in list(entry)):
                     address = entry['address'].replace(" ", "+")
                     city = entry['city']
-                    resp = requests.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + address + ",+" + city + ",+CT&key=AIzaSyBudLNw6Yc7FCyOS72H7-0PcxkHTrGlYGc")
+                    resp = requests.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + address + ",+" + city + ",+CT&key=")
                     rest = json.loads(resp.content)
                     coords = {'coordinates': (rest['results'][0]['geometry']['location']['lng'], rest['results'][0]['geometry']['location']['lat'])}
                 else:
@@ -49,7 +49,7 @@ class NearByLocations:
                 address = entry['address'].replace(" ", "+")
                 city = entry['city']
                 l = Location.Location()
-                resp = requests.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + address + ",+" + city + ",+CT&key=AIzaSyBudLNw6Yc7FCyOS72H7-0PcxkHTrGlYGc")
+                resp = requests.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + address + ",+" + city + ",+CT&key=")
                 rest = json.loads(resp.content)
                 l.init(entry['name'], "", rest['results'][0]['geometry']['location'], entry['address'], entry['city'], entry['zip'], service)
                 self.locations.append(l)
